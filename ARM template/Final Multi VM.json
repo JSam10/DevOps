@@ -24,21 +24,21 @@
         },
         "testNumberOfInstances": {
           "type": "int",
-          "defaultValue": 1,
+          "defaultValue": 0,
           "metadata": {
             "description": "Number of test VMs to deploy"
           }
         },
         "buildNumberOfInstances": {
           "type": "int",
-          "defaultValue": 3,
+          "defaultValue": 2,
           "metadata": {
             "description": "Number of build VMs to deploy"
           }
         },
         "devNumberOfInstances": {
           "type": "int",
-          "defaultValue": 1,
+          "defaultValue": 0,
           "metadata": {
             "description": "Number of dev VMs to deploy"
           }
@@ -111,6 +111,7 @@
             "description": "DSC configuration function to call"
           }
         },
+
         "buildmodulesUrl": {
           "type": "string",
           "defaultValue": "https://github.com/JSam10/DevOps/raw/master/ContosoWebsite.ps1.zip",
@@ -439,7 +440,7 @@
         },
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
-          "name": "[concat('devvm/', variables('vmExtensionName'), copyIndex())]",
+          "name": "[concat('devvm',copyindex(),'/devvmextension')]",
           "apiVersion": "2015-05-01-preview",
           "location": "[parameters('location')]",
           "copy": {
@@ -466,7 +467,7 @@
         },
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
-          "name": "[concat('testvm/', variables('vmExtensionName'), copyIndex())]",
+          "name": "[concat('testvm',copyindex(),'/testvmextension')]",
           "apiVersion": "2015-05-01-preview",
           "location": "[parameters('location')]",
           "copy": {
@@ -493,7 +494,7 @@
         },
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
-          "name": "[concat('buildvm/', variables('vmExtensionName'), copyIndex())]",
+          "name": "[concat('buildvm',copyindex(),'/buildvmextension')]",
           "apiVersion": "2015-05-01-preview",
           "location": "[parameters('location')]",
           "copy": {
@@ -539,4 +540,4 @@
       }
     }
   }
-}
+  } 
