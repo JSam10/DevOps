@@ -10,7 +10,8 @@
     $destFile = "c:\users\public\documents\vlc.msi"
     Invoke-WebRequest $sourceFile -outFile $destFile
     $process = Start-Process $destFile -ArgumentList "/qn" -Wait -PassThru
-    $text = ("VLC status: " + $process.ExitCode) | Out-File 'c:\users\public\documents\DSClog.txt' -Append
+    $ptime = get-date
+    $text = ("VLC status: " + $process.ExitCode + "at " +$ptime) | Out-File 'c:\users\public\documents\DSClog.txt' -Append
 
     #Install the IIS Role
     WindowsFeature IIS
@@ -18,8 +19,9 @@
       Ensure = “Present”
       Name = “Web-Server”
     }
-
-    $text = "IIS config done" | Out-File 'c:\users\public\documents\DSClog.txt' -Append
+    
+    $ptime = get-date 
+    $text = ("IIS installation complete at: " + $ptime) | Out-File 'c:\users\public\documents\DSClog.txt' -Append
 
     #Install ASP.NET 4.5
     WindowsFeature ASP
@@ -28,7 +30,8 @@
       Name = “Web-Asp-Net45”
     }
 
-     $text = "ASP.NET config done" | Out-File 'c:\users\public\documents\DSClog.txt' -Append
+     $ptime = get-date
+     $text = ("ASP.NET installation complete at: " +$ptime) | Out-File 'c:\users\public\documents\DSClog.txt' -Append
      
      WindowsFeature WebServerManagementConsole
     {
